@@ -1,22 +1,12 @@
-// Completed!
-
 #include <stdio.h>
 #include <signal.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
 
-// ‫‪If‬‬ ‫‪EPERM,‬‬ ‫‪Process‬‬ ‫>‪<pid‬‬ ‫​‬ ‫‪exists‬‬ ‫‪but‬‬ ‫‪we‬‬ ‫‪have‬‬ ‫‪no‬‬ ‫‪permission.‬‬
-// ‫‪If‬‬ ‫‪ESRCH,‬‬ ‫‪Process‬‬ ‫>‪<pid‬‬ ‫‪does‬‬ ‫‪not‬‬ ‫‪exist.
-// ‬‬
-//‫‪ If‬‬ ‫‪kill‬‬ ‫‪is‬‬ ‫‪successful,‬‬ ‫‪Process‬‬ ‫>‪<pid‬‬ ‫‪exists.‬‬
-// ‫‪Running‬‬ ‫​‪example‬‬ ‫‪:‬‬ ‫‪check_pid‬‬ ‫‪2003‬‬
-// ‫‪Process‬‬ ‫‪2003‬‬ ‫‪exists.‬‬
-
 int main(int argc, char **argv) {
     int relevant_pid;
     int status;
-
 
     // TODO: fix the tiny bug when not transfering arguemnts to the main program
     if (argc < 2) {
@@ -25,13 +15,9 @@ int main(int argc, char **argv) {
     }
 
     relevant_pid = atoi(argv[1]);
-    // printf("pid = %d\n", relevant_pid);
-
 
     if (status = kill(relevant_pid, 0) == -1)
         printf("sending signal failed for pid = %d\n", relevant_pid);
-
-    //printf("res = %d\n", status);
 
     if (status) {
         switch (errno) {
@@ -40,11 +26,9 @@ int main(int argc, char **argv) {
                 break;
             case EPERM:
                 printf("Process %d exists but we have no permission.\n", relevant_pid);
-                // printf("The process does not have permission to send the signal to any of the target processes.\n");
-                break;
+                 break;
             case ESRCH:
                 printf("Process %d does not exist.\n", relevant_pid);
-                // printf("The pid or process group does not exist.\n");
                 break;
         }
     }
