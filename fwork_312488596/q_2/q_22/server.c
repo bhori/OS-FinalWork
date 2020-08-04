@@ -12,20 +12,19 @@
 static volatile sig_atomic_t counterSigint = 0;
 
 static void
-handler(int sig) {
-    if (sig == SIGINT) {
-        counterSigint++;
-    }
-    else if (sig == SIGUSR1) {
-        printf("The number of interrupt signal was sent is: %d\n", counterSigint);
-    }
+sigint_handler(int sig) {
+    counterSigint++;
+}
+
+sigusr1_handler(int sig) {
+    printf("The number of interrupt signal was sent is: %d\n", counterSigint);
 }
 
 int main(int argc, char **argv) {
     printf("The pid is: %d\n", getpid());
 
-    (void) signal(SIGINT, handler);
-    (void) signal(SIGUSR1, handler);
+    (void) signal(SIGINT, sigint_handler);
+    (void) signal(SIGUSR1, sigusr1_handler);
 
     while (1);
 

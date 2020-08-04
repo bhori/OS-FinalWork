@@ -12,6 +12,7 @@ int main(int argc, char **argv) {
     int status, i;
     int num_signals_to_send = 1;
 
+    //Check the integrity of the input
     if (argc < 2) {
         printf("Error you need to pass pid number\n");
         exit(1);
