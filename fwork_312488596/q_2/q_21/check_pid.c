@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
 
     relevant_pid = atoi(argv[1]);
 
-    if (status = kill(relevant_pid, 0) == -1)
+    if ((status = kill(relevant_pid, 0)) == -1)
         printf("sending signal failed for pid = %d\n", relevant_pid);
 
     if (status) {

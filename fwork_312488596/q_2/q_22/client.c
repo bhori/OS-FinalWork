@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
 
         for (i = 0; i < num_signals_to_send; i++) {
             // printf("%d) Sending... \n", i);
-            if (status = kill(relevant_pid, SIGINT) == -1)
+            if ((status = kill(relevant_pid, SIGINT)) == -1)
                 printf("ERROR: sending signal SIGINT failed for pid = %d failed.\n", relevant_pid);
         }
 

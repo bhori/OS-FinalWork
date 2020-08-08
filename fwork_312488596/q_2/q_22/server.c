@@ -15,10 +15,10 @@ static void
 sigint_handler(int sig) {
     counterSigint++;
 }
-
+static void
 sigusr1_handler(int sig) {
     printf("The number of interrupt signal was sent is: %d\n", counterSigint);
-}
+ }
 
 int main(int argc, char **argv) {
     printf("The pid is: %d\n", getpid());

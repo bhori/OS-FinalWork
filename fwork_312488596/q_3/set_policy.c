@@ -70,7 +70,7 @@ int sched_setattr(pid_t pid, const struct sched_attr *attr, unsigned int flags)
 
 int main(int argc, char **argv) {
     int relevant_policy, priority;
-    int nice_value;
+    // int nice_value;
     struct sched_param sp;
 
     //Check the integrity of the input
@@ -103,7 +103,7 @@ int main(int argc, char **argv) {
         case SCHED_FIFO: {
             printf("Schedualer of type: %d\n", relevant_policy);
             if(priority<=0){
-                printf("Wrong input, invalid priority0 for policy of type SCHED_FIFO!\n");
+                printf("Wrong input, invalid priority for policy of type SCHED_FIFO!\n");
                 return (1);
             }
             sp.sched_priority = priority;
