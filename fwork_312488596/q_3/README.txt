@@ -2,6 +2,7 @@ In order to run the program you need to run the command 'make' or 'make set_poli
 You then need to run the program name with 2 more parameters (integers) separated by a space when the first parameter indicates the required policy and the second parameter indicates the required priority.
 
 * Note that in order to change the scheduling policy to SCHED_FIFO, SCHE_RR or SCHED_DEADLINE you need to run the program with sudo.
+* I added a 'sleep' command at the end of the program for 30 seconds to allow you to check the scheduling policy of the process and its priority after the change made by the program.
 
 Running example:
 1) make
