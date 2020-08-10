@@ -102,7 +102,7 @@ int main(int argc, char **argv) {
         }
         case SCHED_FIFO: {
             printf("Schedualer of type: %d\n", relevant_policy);
-            if(priority<=0){
+            if(priority<=0 || priority>=100){
                 printf("Wrong input, invalid priority for policy of type SCHED_FIFO!\n");
                 return (1);
             }
@@ -120,7 +120,7 @@ int main(int argc, char **argv) {
         }
         case SCHED_RR: {
             printf("Schedualer of type: %d\n", relevant_policy);
-            if(priority<=0){
+            if(priority<=0 || priority>=100){
                 printf("Wrong input, invalid priority for policy of type SCHED_RR!\n");
                 return (1);
             }

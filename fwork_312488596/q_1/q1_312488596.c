@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char globBuf[65536];            /* 1. Where is allocated? 	** uninitialized data segment-bss */ 
-int primes[] = { 2, 3, 5, 7 };  /* 2. Where is allocated? 	** initialized data segment */
+char globBuf[65536];            /* 1. uninitialized data segment-bss */ 
+int primes[] = { 2, 3, 5, 7 };  /* 2. initialized data segment */
 
 static int
-square(int x)                   /* 3. Where is allocated? */
+square(int x)                   /* 3. text segment */
 {
    int result;                 /* 4. Where is allocated? 	** stack (maybe it is wrong because the function is static) */
 
@@ -15,7 +15,7 @@ square(int x)                   /* 3. Where is allocated? */
 }
 
 static void
-doCalc(int val)                 /* 6. Where is allocated? */
+doCalc(int val)                 /* 6. text segment */
 {
     printf("The square of %d is %d\n", val, square(val));
 //printf("The square of %d is %d\n", val, 5);
@@ -28,10 +28,10 @@ doCalc(int val)                 /* 6. Where is allocated? */
 }
 
 int
-main(int argc, char* argv[])    /* Where is allocated? */
+main(int argc, char* argv[])    /* text segment */
 {
-    static int key = 9973;      /* Where is allocated? 		** initialized data segment */
-    static char mbuf[10240000]; /* Where is allocated? 		** uninitialized data segment-bss */
+    static int key = 9973;      /* initialized data segment */
+    static char mbuf[10240000]; /* uninitialized data segment-bss */
     char* p;                    /* Where is allocated? 		** stack */
 
 

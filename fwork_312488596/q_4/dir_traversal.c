@@ -14,28 +14,12 @@ static int dirTree(const char *pathname, const struct stat *sbuf, int type,
     if (type == FTW_NS) {
         printf("?");
     } else if(type != FTW_SL){
-        // switch (sbuf->st_mode & S_IFMT) {  /* Print file type */
-        //     case S_IFREG:           /* Regular file.  */
-        //         printf("F %d %s\n", sbuf->st_ino, basename(pathname));
-        //         // printf("F %d %s\n", sbuf->st_ino, ftwb->base);
-        //         break; 
-        //     case S_IFDIR:           /* Directory.  */
-        //         printf("D %d %s\n", sbuf->st_ino, basename(pathname));
-        //         // printf("D %d %s\n", sbuf->st_ino, ftwb->base);
-        //         break; 
-        //     case S_IFLNK:        /* Symbolic link.  */
-        //         printf("l %d %s\n", sbuf->st_ino, basename(pathname));
-        //         break;
-        //     default:            /* Irrelevant for our case */
-        //         printf("?");
-        //         break; 
-        // }
-        switch (type) {  /* Print file type */
-            case FTW_F:           /* Regular file.  */
+        switch (sbuf->st_mode & S_IFMT) {  /* Print file type */
+            case S_IFREG:           /* Regular file.  */
                 printf("F %ld %s\n", sbuf->st_ino, basename(pathname));
-                // printf("F %ld %s\n", sbuf->st_ino, ftwb->base);
+                // printf("F %d %s\n", sbuf->st_ino, ftwb->base);
                 break; 
-            case FTW_D:           /* Directory.  */
+            case S_IFDIR:           /* Directory.  */
                 printf("D %ld %s\n", sbuf->st_ino, basename(pathname));
                 // printf("D %d %s\n", sbuf->st_ino, ftwb->base);
                 break; 
@@ -46,6 +30,22 @@ static int dirTree(const char *pathname, const struct stat *sbuf, int type,
                 printf("?");
                 break; 
         }
+        // switch (type) {  /* Print file type */
+        //     case FTW_F:           /* Regular file.  */
+        //         printf("F %ld %s\n", sbuf->st_ino, basename(pathname));
+        //         // printf("F %ld %s\n", sbuf->st_ino, ftwb->base);
+        //         break; 
+        //     case FTW_D:           /* Directory.  */
+        //         printf("D %ld %s\n", sbuf->st_ino, basename(pathname));
+        //         // printf("D %d %s\n", sbuf->st_ino, ftwb->base);
+        //         break; 
+        //     case S_IFLNK:        /* Symbolic link.  */
+        //         printf("l %ld %s\n", sbuf->st_ino, basename(pathname));
+        //         break;
+        //     default:            /* Irrelevant for our case */
+        //         printf("?");
+        //         break; 
+        // }
     }
 
     return 0;
@@ -60,7 +60,7 @@ int main(int argc, char **argv) {
         return (-1);
     }
 
-    printf("Focusing on directory: %s\n", argv[1]);
+    // printf("Focusing on directory: %s\n", argv[1]);
 
     //TODO: Figure out whats wrong!!
     // flags |= FTW_CHDIR;
