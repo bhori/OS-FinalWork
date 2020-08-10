@@ -1,5 +1,3 @@
-// Client side!
-
 #include <stdio.h>
 #include <signal.h>
 #include <stdlib.h>
@@ -12,15 +10,14 @@ int main(int argc, char **argv) {
     int status, i;
     int num_signals_to_send = 1;
 
-    //Check the integrity of the input
+    // Check the integrity of the input
     if (argc < 2) {
-        printf("Error you need to pass pid number\n");
+        printf("Error: you need to pass pid number\n");
         exit(1);
     }
 
     relevant_pid = atoi(argv[1]);
     signal_type = atoi(argv[2]);
-    // printf("pid = %d\n", relevant_pid);
 
     if (signal_type == SIGINT) {
         //TODO: Please check this case:
@@ -30,7 +27,6 @@ int main(int argc, char **argv) {
             num_signals_to_send = atoi(argv[3]);
 
         for (i = 0; i < num_signals_to_send; i++) {
-            // printf("%d) Sending... \n", i);
             if ((status = kill(relevant_pid, SIGINT)) == -1)
                 printf("ERROR: sending signal SIGINT failed for pid = %d failed.\n", relevant_pid);
         }

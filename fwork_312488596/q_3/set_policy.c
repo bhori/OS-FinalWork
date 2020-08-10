@@ -10,10 +10,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-// #define __USE_GNU
-// #define SCHED_DEADLINE        6
-// #define SCHED_IDLE        5
-
+// prints the current scheduling policy and priority of the process, 'status' is an indicator that indicates whether the printing is done before or after the change.
 void get_Policy_Priority(char status){
     int pol;
     struct sched_param sp;
@@ -25,25 +22,22 @@ void get_Policy_Priority(char status){
     if (sched_getparam(0, &sp) == -1)
         printf("ERROR: sched_getparam\\n");
 
+    char * current_policy = (pol == SCHED_OTHER) ? "OTHER" :
+            (pol == SCHED_RR) ? "RR" :
+            (pol == SCHED_FIFO) ? "FIFO" :
+            (pol == SCHED_IDLE) ? "IDLE" :
+            (pol == SCHED_DEADLINE) ? "DEADLINE" : "???";
+
+    // 'B' indicates that the print is before the change, 'A' indicates that the print is after the change.
     if(status=='B'){
-        printf("The policy and priority before the change: policy - %-5s, priority - ", 
-            (pol == SCHED_OTHER) ? "OTHER" :
-            (pol == SCHED_RR) ? "RR" :
-            (pol == SCHED_FIFO) ? "FIFO" :
-            (pol == SCHED_IDLE) ? "IDLE" :
-            (pol == SCHED_DEADLINE) ? "DEADLINE" : "???");
+        printf("The policy and priority before the change: policy - %-5s, priority - ", current_policy);
     }else if (status=='A'){
-        printf("The policy and priority after the change: policy - %-5s, priority - ", 
-            (pol == SCHED_OTHER) ? "OTHER" :
-            (pol == SCHED_RR) ? "RR" :
-            (pol == SCHED_FIFO) ? "FIFO" :
-            (pol == SCHED_IDLE) ? "IDLE" :
-            (pol == SCHED_DEADLINE) ? "DEADLINE" : "???");
+        printf("The policy and priority after the change: policy - %-5s, priority - ", current_policy); 
     }
     printf("%2d\n", sp.sched_priority);
 }
 
-
+// Redefinition of struct sched_attr
 struct sched_attr {
     uint32_t size;
 
@@ -62,6 +56,8 @@ struct sched_attr {
     uint64_t sched_period;
 };
 
+
+// sched_setattr syscall wrapper
 int sched_setattr(pid_t pid, const struct sched_attr *attr, unsigned int flags)
 {
    return syscall(__NR_sched_setattr, pid, attr, flags);
@@ -70,7 +66,6 @@ int sched_setattr(pid_t pid, const struct sched_attr *attr, unsigned int flags)
 
 int main(int argc, char **argv) {
     int relevant_policy, priority;
-    // int nice_value;
     struct sched_param sp;
 
     //Check the integrity of the input
@@ -84,6 +79,7 @@ int main(int argc, char **argv) {
 
     relevant_policy = atoi(argv[1]);
     priority = atoi(argv[2]);
+    
     switch (relevant_policy) {
         case SCHED_DEADLINE:{
             struct sched_attr attr = {
@@ -93,8 +89,6 @@ int main(int argc, char **argv) {
             .sched_period = 100000000,
             .sched_deadline = 100000000
             };
-
-            // pid_t tid = syscall(SYS_gettid);
 
             if (sched_setattr(0, &attr, 0))
                 perror("sched_setattr()");
@@ -142,9 +136,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    // int pid=atoi(argv[3]);
-
-    // if (sched_setscheduler(pid, relevant_policy, &sp) == -1)
+    // if relevant_policy is SCHED_DEADLINE the change has already been made above!
     if(relevant_policy!=SCHED_DEADLINE){
         if (sched_setscheduler(0, relevant_policy, &sp) == -1)
             printf("ERROR! sched_setscheduler\n");
@@ -153,7 +145,10 @@ int main(int argc, char **argv) {
     // prints the policy and priority after the change
     get_Policy_Priority('A');
 
-    while(1);
+    // while(1);
+
+    // Delays the end of the program to allow you to check the scheduling policy and priority with certain commands (e.g. chrt -p <pid>)
+    sleep(30);
 
     return 0;
 }
