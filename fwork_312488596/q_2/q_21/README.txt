@@ -1,7 +1,8 @@
-על מנת להריץ את התכנית צריך להריץ את הפקודה make או make check_pid שתקמפל את התכנית check_pid.c ותקרא לקובץ הרצה בשם check_pid.
-לאחר מכן צריך להריץ את שם התכנית עם עוד פרמטר אחד (מספר שלם) שמסמן את הID של התהליך שעליו אנחנו רוצים לבדוק אם הוא קיים.
-דוגמת הרצה:
-1) make
-2) ./check_pid 2003
+In order to run the program you need to run the command 'make' or 'make check_pid' that will compile the program 'check_pid.c' and call the executable file 'check_pid'.
+You then need to run the program name with one more parameter (integer) that indicates the ID of the process on which we want to check if it exists.
 
-** על מנת לנקות את קבצי ההרצה והקבצים המקומפלים ניתן להריץ את הפקודה make clean.
+Running example:
+1) make
+2)./check_pid 2003
+
+** In order to clean the executable files and the compiled files you can run the command 'make clean'.

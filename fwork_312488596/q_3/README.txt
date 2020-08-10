@@ -1,7 +1,10 @@
-על מנת להריץ את התכנית צריך להריץ את הפקודה make או make set_policy שתקמפל את התכנית set_policy.c ותקרא לקובץ הרצה בשם set_policy.
-לאחר מכן צריך להריץ את שם התכנית עם עוד 2 פרמטרים (מספרים שלמים) מופרדים ברווח כאשר הראשון מסמן את המדיניות המבוקשת והשני מסמן את העדיפות המבוקשת.
-דוגמת הרצה:
-1) make
-2) ./set_policy 1 5
+In order to run the program you need to run the command 'make' or 'make set_policy' that will compile the program 'set_policy.c' and call the executable file 'set_policy'.
+You then need to run the program name with 2 more parameters (integers) separated by a space when the first parameter indicates the required policy and the second parameter indicates the required priority.
 
-** על מנת לנקות את קבצי ההרצה והקבצים המקומפלים ניתן להריץ את הפקודה make clean.
+* Note that in order to change the scheduling policy to SCHED_FIFO, SCHE_RR or SCHED_DEADLINE you need to run the program with sudo.
+
+Running example:
+1) make
+2) ./set_policy 5 0
+
+** In order to clean the executable files and the compiled files you can run the command 'make clean'.
