@@ -1,5 +1,5 @@
 In order to run the program you need to run the command 'make' or 'make check_pid' that will compile the program 'check_pid.c' and call the executable file 'check_pid'.
-You then need to run the program name with one more parameter (integer) that indicates the ID of the process on which we want to check if it exists.
+You then need to run the program name with one more parameter (integer) that indicates the ID of the process on which you want to check if it exists.
 
 Running example:
 1) make
