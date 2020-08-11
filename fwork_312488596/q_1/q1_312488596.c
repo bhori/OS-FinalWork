@@ -8,10 +8,10 @@ int primes[] = { 2, 3, 5, 7 };  /* 2. initialized data segment */
 static int
 square(int x)                   /* 3. text segment */
 {
-   int result;                 /* 4. Where is allocated? 	** stack (maybe it is wrong because the function is static) */
+   int result;                 /* 4. stack */
 
     result = x * x;
-   return result;              /* 5. How the return value is passed? */
+   return result;              /* 5. The reurn value is passed by a register */
 }
 
 static void
@@ -20,7 +20,7 @@ doCalc(int val)                 /* 6. text segment */
     printf("The square of %d is %d\n", val, square(val));
 //printf("The square of %d is %d\n", val, 5);
     if (val < 1000) {
-        int t;                  /* 7. Where is allocated? 	** stack (maybe it is wrong because the function is static) */
+        int t;                  /* 7. stack */
 
         t = val * val * val;
         printf("The cube of %d is %d\n", val, t);
