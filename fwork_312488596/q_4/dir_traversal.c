@@ -9,36 +9,24 @@
 static int dirTree(const char *pathname, const struct stat *sbuf, int type, struct FTW *ftwb) {
 
     long inode = sbuf->st_ino;
-    if (type == FTW_NS) {
-        printf("?");
-    // } else if(type != FTW_SL){
-    //     switch (sbuf->st_mode & S_IFMT) {  /* Print file type */
-    //         case S_IFREG:           /* Regular file.  */
-    //             printf("F %ld %s\n", sbuf->st_ino, basename(pathname));
-    //              break; 
-    //         case S_IFDIR:           /* Directory.  */
-    //             printf("D %ld %s\n", sbuf->st_ino, basename(pathname));
-    //             break; 
-    //         default:            /* Irrelevant for our case */
-    //             printf("?");
-    //             break; 
-    //     }
-    }else{
-        switch(type){        /* Print file type */
-            case FTW_F:         /* Regular file.  */
-                printf("F %ld %s\n", inode, basename(pathname));
-                break;
-            case FTW_D:         /* Directory.  */
-                printf("D %ld %s\n", inode, basename(pathname));
-                break;
-            case FTW_DNR:       /* Directory which can't be read. */
-                printf("DNR %ld %s\n", inode, basename(pathname));
-                break;
-            case FTW_SL:         /* igonre symbolic link */
-                break;
-            default:
-                break;
-        }
+
+    switch(type){        /* Print file type */
+        case FTW_F:         /* Regular file.  */
+            printf("F %ld %s\n", inode, basename(pathname));
+            break;
+        case FTW_D:         /* Directory.  */
+            printf("D %ld %s\n", inode, basename(pathname));
+            break;
+        case FTW_DNR:       /* Directory which can't be read. */
+            printf("DNR %ld %s\n", inode, basename(pathname));
+            break;
+        case FTW_NS:         /* Unstatable file */
+            printf("NS %ld %s\n", inode, basename(pathname));
+            break;
+        case FTW_SL:         /* Igonre symbolic link */
+            break;
+        default:
+            break;
     }
 
     return 0;
